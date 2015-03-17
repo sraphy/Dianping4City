@@ -94,17 +94,17 @@ if __name__ == "__main__":
 	sys.getfilesystemencoding()
 
 	## 获得宁波规划区的所有餐饮POI名称
-	# getNBplandistRestaurants()
+	getNBplandistRestaurants()
 
 	## 获取每个POI的具体信息
-	# f = open('dpshops/nb_restaurants0.dat')
-	# f2 = open('dpshops/nb_restaurants1.dat', "a")
-	# f2.write('名称\t均价\t口味\t环境\t服务\t地址\tLat\tLng\tURL\n')
-	# for line in f.readlines():
-	# 	info = line.split('\t')
-	# 	# print info[0]
-	# 	getSingleShopInfo(info[1], f2)
-	# f2.close()
+	f = open('dpshops/nb_restaurants0.dat')
+	f2 = open('dpshops/nb_restaurants1.dat', "a")
+	f2.write('名称\t均价\t口味\t环境\t服务\t地址\tLat\tLng\tURL\n')
+	for line in f.readlines():
+		info = line.split('\t')
+		print info[0]
+		getSingleShopInfo(info[1], f2)
+	f2.close()
 
 	## 将每个POI的空间坐标添加上去
 	service = baiduMapService('CBf77b6c299fe052b8d9e869438c6301')
