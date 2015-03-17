@@ -2,6 +2,7 @@
 import urllib2
 import cookielib
 import sys
+import json
 from BeautifulSoup import *
 from sqlalchemy import *
 from sqlalchemy.orm import create_session, sessionmaker
@@ -30,6 +31,8 @@ class POI(Base):
 	SER_SCORE = Column(Float(precision=2))
 	LAT = Column(Float(precision=8))
 	LNG = Column(Float(precision=8))
+	LAT84 = Column(Float(precision=8))
+	LNG84 = Column(Float(precision=8))
 	ADDR = Column(String(100))
 	URL = Column(String(100))
 
@@ -74,7 +77,6 @@ class DianpingCity():
 			session.flush()
 			session.commit()
 		print 'OK'
-
 
 	def getSingleShopInfo(self):
 		cookie = cookielib.CookieJar()
@@ -149,7 +151,6 @@ class DianpingCity():
 			session.flush()
 			session.commit()
 
-
 	def setPOIGeo(self, service):
 		DBSession = sessionmaker()
 		DBSession.configure(bind=engine)
@@ -165,6 +166,28 @@ class DianpingCity():
 		session.commit()
 		print 'OK'
 
+	def setWGS84(self):
+		DBSession = sessionmaker()
+		DBSession.configure(bind=engine)
+		session = DBSession()
+		query = session.query(POI).filter(POI.id>=0 )
+
+		for obj in query:
+			print obj.NAME
+			try:
+				req = urllib2.urlopen('http://api.zdoz.net/gcj2wgs.aspx?lat='+ str(obj.LAT)+'&lng='+str(obj.LNG)).read()
+				print 'http://api.zdoz.net/gcj2wgs.aspx?lat='+ str(obj.LAT)+'&lng='+str(obj.LNG)
+				latlng = json.loads(req)
+				query.filter(POI.id == obj.id).update({'LAT84':latlng['Lat'], 'LNG84':latlng['Lng']})
+			except:
+				session.flush()
+				session.commit()
+				continue
+
+		session.flush()
+		session.commit()
+
+
 
 if __name__ == "__main__":
 	reload(sys)
@@ -179,5 +202,9 @@ if __name__ == "__main__":
 	# app.getSingleShopInfo()
 
 	## 将每个POI的空间坐标添加上去
-	service = baiduMapService('CBf77b6c299fe052b8d9e869438c6301')
-	app.setPOIGeo(service)
+	# service = baiduMapService('CBf77b6c299fe052b8d9e869438c6301')
+	# app.setPOIGeo(service)
+
+	## 将GJC02坐标转化为WGS84坐标
+	# app.setWGS84()
+
