@@ -125,8 +125,9 @@ class baiduMapService:
 		# print loc,res['pois'][0]['name']
 		return loc.split(',')[1] + '\t' + loc.split(',')[0]
 
-	def gaodeGeoCoder2(self, address):
-		url = 'http://restapi.amap.com/v3/geocode/geo?address='+address+'&key=a2c256158f9d95cfdcff434dfc966e6f&s=rsv3&city=0574&callback=_61985_'
+	def gaodeGeoCoder2(self, address, districtcode):
+		url = 'http://restapi.amap.com/v3/geocode/geo?address='+address+\
+		      '&key=a2c256158f9d95cfdcff434dfc966e6f&s=rsv3&city='+ districtcode+'&callback=_61985_'
 		url = url.replace('%20', '').replace(' ', '')
 		# print url
 		req = urlopen(url).read()
