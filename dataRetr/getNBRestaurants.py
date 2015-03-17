@@ -94,7 +94,7 @@ if __name__ == "__main__":
 	sys.getfilesystemencoding()
 
 	## 获得宁波规划区的所有餐饮POI名称
-	getNBplandistRestaurants()
+	# getNBplandistRestaurants()
 
 	## 获取每个POI的具体信息
 	f = open('dpshops/nb_restaurants0.dat')
