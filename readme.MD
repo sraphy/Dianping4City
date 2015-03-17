@@ -28,5 +28,18 @@
     app.setPOIGeo()
 执行改代码后，宁波规划区范围的餐饮店的地理坐标被保存到nb_restaurant表中
 
+##1.4 设置WGS84坐标
+    setWGS84()
+    为数据表中的LAT84和LNG84添加上对应的值。
+    高德的坐标为GCJ02
+    
+##1.5 获得每个POI的点评数值
+    getSingleShopComment()
+    获得每个POI的记录时间、用户打分、口味评分、环境评分、服务评分
 
-select pk, REC_DATE2, avg(SCORE) as avg_score , avg(TAS) as avg_tas ,avg(ENV) as avg_env ,avg(SER) as avg_ser from nb_restaurant_score group by pk, REC_DATE2;
+    在sqlite数据库中执行以下命令，生成一个视图
+    create view nb_restaurant_score_by_year
+    AS
+    select pk, REC_DATE2, avg(SCORE) as avg_score , avg(TAS) as avg_tas ,avg(ENV) as avg_env ,avg(SER) as avg_ser from
+     nb_restaurant_score group by pk, REC_DATE2;
+    视图中将会按POI的年份展示用户打分、口味评分、环境评分、服务评分
