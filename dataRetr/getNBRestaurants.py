@@ -203,7 +203,8 @@ class DianpingCity():
 		DBSession = sessionmaker()
 		DBSession.configure(bind=engine)
 		session = DBSession()
-		query = session.query(POI).filter(POI.id ==2165 )
+		query1 = session.query(POI).filter(POI.COM_COUNT>0 )
+		query = query1.filter(POI.id>1108)
 
 		cookie = cookielib.CookieJar()
 		cookie_handler = urllib2.HTTPCookieProcessor(cookie)
@@ -239,6 +240,8 @@ class DianpingCity():
 							poiscore.TAS = rsts[0].text[2:3]
 							poiscore.ENV = rsts[1].text[2:3]
 							poiscore.SER = rsts[2].text[2:3]
+						elif len(rsts)==0:
+							continue
 						else:
 							poiscore.TAS = rsts[1].text[2:3]
 							poiscore.ENV = rsts[2].text[2:3]
