@@ -36,6 +36,18 @@ class POI(Base):
 	ADDR = Column(String(100))
 	URL = Column(String(100))
 
+class POI_SCORE(Base):
+	__tablename__ = 'nb_restaurant_score'
+
+	id = Column(Integer, primary_key=True)
+	pk = Column(Integer)
+	SCORE = Column(Integer)
+	TAS = Column(Integer)
+	ENV = Column(Integer)
+	SER = Column(Integer)
+	REC_DATE = Column(Date)
+	REC_DATE2 = Column(String(12))
+
 class DianpingCity():
 
 	def dbinit(self):
@@ -187,7 +199,62 @@ class DianpingCity():
 		session.flush()
 		session.commit()
 
+	def getSingleShopComment(self):
+		DBSession = sessionmaker()
+		DBSession.configure(bind=engine)
+		session = DBSession()
+		query = session.query(POI).filter(POI.id ==2165 )
 
+		cookie = cookielib.CookieJar()
+		cookie_handler = urllib2.HTTPCookieProcessor(cookie)
+		###有些网站反爬虫，这里用headers把程序伪装成浏览器
+		hds = {
+		'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.72 Safari/537.36'}
+		opener = urllib2.build_opener(cookie_handler)
+
+		for obj in query:
+			print obj.NAME
+			# m = int(obj.COM_COUNT/20)+2
+			for i in range(1, 101):
+				try:
+					url = obj.URL+'/review_all?pageno='+str(i)
+					print url
+					req = urllib2.Request(url=url, headers=hds)  # 伪装成浏览器，访问该页面，并POST表单数据，这里并没有实际访问，只是创建了一个有该功能的对象
+					response = opener.open(req)  # 请求网页，返回句柄
+					page = response.read()  # 读取并返回网页内容
+					soup = BeautifulSoup(page)
+					scores = soup.findAll('div', {'class': 'content'})
+					if len(scores)==0:
+						break
+					for score in scores:
+						poiscore = POI_SCORE()
+						poiscore.pk = obj.id
+						dt = score.find('span', {'class':'time'}).text[0:11].replace('&nbsp;','').replace('&nb','')
+						if len(dt)==5:
+							poiscore.REC_DATE2 = '2015'
+						else:
+							poiscore.REC_DATE2 = '20'+dt[:2]
+						rsts = score.findAll('span', {'class':'rst'})
+						if len(rsts)==3:
+							poiscore.TAS = rsts[0].text[2:3]
+							poiscore.ENV = rsts[1].text[2:3]
+							poiscore.SER = rsts[2].text[2:3]
+						else:
+							poiscore.TAS = rsts[1].text[2:3]
+							poiscore.ENV = rsts[2].text[2:3]
+							poiscore.SER = rsts[3].text[2:3]
+						# for rst in rsts:
+						# 	print rst.text[2:3]
+						star = str(score.find('span',{'title':''})).split('irr-star')[1][:2]
+						poiscore.SCORE = int(star)/10
+						session.add(poiscore)
+				except Exception,e :
+					# session.flush()
+					# session.commit()
+					print e
+					continue
+			session.flush()
+			session.commit()
 
 if __name__ == "__main__":
 	reload(sys)
@@ -207,4 +274,5 @@ if __name__ == "__main__":
 
 	## 将GJC02坐标转化为WGS84坐标
 	# app.setWGS84()
+	app.getSingleShopComment()
 

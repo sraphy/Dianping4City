@@ -27,3 +27,6 @@
     使用高德地理编码工具
     app.setPOIGeo()
 执行改代码后，宁波规划区范围的餐饮店的地理坐标被保存到nb_restaurant表中
+
+
+select pk, REC_DATE2, avg(SCORE) as avg_score , avg(TAS) as avg_tas ,avg(ENV) as avg_env ,avg(SER) as avg_ser from nb_restaurant_score group by pk, REC_DATE2;
