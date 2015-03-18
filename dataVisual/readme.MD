@@ -12,3 +12,17 @@
 ![hello world](pic/a.png)
 
 将这些数据导出。见data文件夹。
+
+2、可视化
+--------------------
+加载csv数据
+
+![hello world](pic/QQ20150319-1.png)
+注意横纵坐标的字段
+![hello world](pic/QQ20150319-2.png)
+选择4326为坐标系
+![hello world](pic/QQ20150319-3.png)
+加载OSM数据为底层地图，如果QGIS上没有这一菜单，请安装OpenLayers plugin插件
+![hello world](pic/QQ20150319-4.png)
+调整图层次序
+![hello world](pic/QQ20150319-5.png)
