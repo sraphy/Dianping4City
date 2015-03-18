@@ -9,15 +9,29 @@
     app = DianpingCity()
 	app.dbinit()
 执行该代码后，dataRetr中将出现一个nbrestaurants.db的sqlite数据库，其中有2个数据表:
+    
     nb_restaurant : 负责记录每个POI的信息
     nb_restaurant_score : 负责记录每个POI对应的评论信息
+
+执行下面的SQL命令，会生成两个视图view备用
+
+    CREATE VIEW nb_restaurant_score_by_year
+    AS
+    select pk, REC_DATE2, avg(SCORE) as avg_score , avg(TAS) as avg_tas ,avg(ENV) as avg_env ,avg(SER) as avg_ser from 
+    nb_restaurant_score group by pk, REC_DATE2
+    
+    CREATE VIEW nb_restaurant_score_by_year_name
+    as
+    select a.id, a.NAME,b.REC_DATE2, b.avg_score, b.avg_tas, b.avg_env, b.avg_ser, a.LAT, A.LNG, a.LAT84, a.LNG84, a.ADDR 
+    from nb_restaurant as a, nb_restaurant_score_by_year as b where a.id = b.pk
 
 ## 1.1 宁波规划区全部餐饮POI获取
     app.getNBplandistRestaurants()
 执行改代码后，宁波规划区范围的餐饮店名称及对应URL被保存到nb_restaurant表中
 
-    其它区域替换时需要替换下列url中g101以后部分
-    lgurl = 'http://www.dianping.com/search/category/11/10/g101r8' + str(m) + 'p' + str(i)
+    其它区域替换时需要替换discode中的区域代码
+    discode = ['80''81','82','83','417','3949']
+    lgurl = 'http://www.dianping.com/search/category/11/10/g101r' + str(m) + 'p' + str(i)
     上面的url中，r80为海曙,江东81,江北82,鄞州83
     p{d}为第d页
     
