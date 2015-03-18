@@ -69,3 +69,5 @@
     获得每个POI的记录时间、用户打分、口味评分、环境评分、服务评分
 
 此时，请打开数据库的nb_restaurant_score_by_year_name视图，你将看到一份宁波六个区域的餐饮业POI的点评信息（按年度）
+
+![hello world](img/a.png)
