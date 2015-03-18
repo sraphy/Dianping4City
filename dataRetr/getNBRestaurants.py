@@ -204,7 +204,7 @@ class DianpingCity():
 		DBSession.configure(bind=engine)
 		session = DBSession()
 		query1 = session.query(POI).filter(POI.COM_COUNT>0 )
-		query = query1.filter(POI.id>1108)
+		query = query1.filter(POI.id>0)
 
 		cookie = cookielib.CookieJar()
 		cookie_handler = urllib2.HTTPCookieProcessor(cookie)
