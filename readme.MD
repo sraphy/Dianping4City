@@ -71,3 +71,7 @@
 此时，请打开数据库的nb_restaurant_score_by_year_name视图，你将看到一份宁波六个区域的餐饮业POI的点评信息（按年度）
 
 ![hello world](img/a.png)
+
+在QGIS中对数据进行可视化
+
+![hello world](img/b.png)
