@@ -64,10 +64,11 @@ class DianpingCity():
 		DBSession = sessionmaker()
 		DBSession.configure(bind=engine)
 		session = DBSession()
-
-		for m in range(0, 4):
+		#
+		discode = ['80''81','82','83','417','3949']
+		for m in discode:
 			for i in range(1, 51):
-				lgurl = 'http://www.dianping.com/search/category/11/10/g101r8' + str(m) + 'p' + str(i)
+				lgurl = 'http://www.dianping.com/search/category/11/10/g101r' + str(m) + 'p' + str(i)
 				req = urllib2.Request(url=lgurl, headers=hds)  # 伪装成浏览器，访问该页面，并POST表单数据，这里并没有实际访问，只是创建了一个有该功能的对象
 				opener = urllib2.build_opener(cookie_handler)  # 绑定handler，创建一个自定义的opener
 				try:
@@ -101,7 +102,7 @@ class DianpingCity():
 		DBSession = sessionmaker()
 		DBSession.configure(bind=engine)
 		session = DBSession()
-		query = session.query(POI).filter(POI.ADDR <> None )
+		query = session.query(POI).filter(POI.ADDR == None )
 
 		try:
 			for obj in query:
@@ -159,7 +160,8 @@ class DianpingCity():
 					print e
 			session.flush()
 			session.commit()
-		except:
+		except Exception,e:
+			print e
 			session.flush()
 			session.commit()
 
@@ -269,7 +271,7 @@ if __name__ == "__main__":
 	# app.dbinit()
 	## 获得宁波规划区的所有餐饮POI名称
 	# app.getNBplandistRestaurants()
-	# app.getSingleShopInfo()
+	app.getSingleShopInfo()
 
 	## 将每个POI的空间坐标添加上去
 	# service = baiduMapService('CBf77b6c299fe052b8d9e869438c6301')
@@ -277,5 +279,5 @@ if __name__ == "__main__":
 
 	## 将GJC02坐标转化为WGS84坐标
 	# app.setWGS84()
-	app.getSingleShopComment()
+	# app.getSingleShopComment()
 

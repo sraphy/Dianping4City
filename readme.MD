@@ -4,7 +4,7 @@
     在运行时如遇到包缺失等问题,请安装相应的library
 # 1、数据获取流程
     数据获取dataretrieval代码可以在dataRetr文件夹的getNBRestaurants.py中获得
-## 1.0 
+## 1.0 初始化
     代码：
     app = DianpingCity()
 	app.dbinit()
