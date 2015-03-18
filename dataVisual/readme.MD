@@ -26,3 +26,10 @@
 ![hello world](pic/QQ20150319-4.png)
 调整图层次序
 ![hello world](pic/QQ20150319-5.png)
+
+3、生成泰森多边形
+![hello world](pic/QQ20150319-6.png)
+
+设置多边形符号
+
+![hello world](pic/QQ20150319-7.png)
