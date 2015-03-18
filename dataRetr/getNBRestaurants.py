@@ -169,7 +169,7 @@ class DianpingCity():
 		DBSession = sessionmaker()
 		DBSession.configure(bind=engine)
 		session = DBSession()
-		query = session.query(POI).filter(POI.ADDR <> None )
+		query = session.query(POI).filter(POI.LAT == None )
 
 		for obj in query:
 			print obj.ADDR
@@ -184,7 +184,7 @@ class DianpingCity():
 		DBSession = sessionmaker()
 		DBSession.configure(bind=engine)
 		session = DBSession()
-		query = session.query(POI).filter(POI.id>=0 )
+		query = session.query(POI).filter(POI.LAT84 == None )
 
 		for obj in query:
 			print obj.NAME
@@ -206,7 +206,7 @@ class DianpingCity():
 		DBSession.configure(bind=engine)
 		session = DBSession()
 		query1 = session.query(POI).filter(POI.COM_COUNT>0 )
-		query = query1.filter(POI.id>0)
+		query = query1.filter(POI.id>2165)
 
 		cookie = cookielib.CookieJar()
 		cookie_handler = urllib2.HTTPCookieProcessor(cookie)
@@ -271,7 +271,7 @@ if __name__ == "__main__":
 	# app.dbinit()
 	## 获得宁波规划区的所有餐饮POI名称
 	# app.getNBplandistRestaurants()
-	app.getSingleShopInfo()
+	# app.getSingleShopInfo()
 
 	## 将每个POI的空间坐标添加上去
 	# service = baiduMapService('CBf77b6c299fe052b8d9e869438c6301')
@@ -279,5 +279,5 @@ if __name__ == "__main__":
 
 	## 将GJC02坐标转化为WGS84坐标
 	# app.setWGS84()
-	# app.getSingleShopComment()
+	app.getSingleShopComment()
 

@@ -2,8 +2,18 @@
 ==================
     本例基于python语言编写而成
     在运行时如遇到包缺失等问题,请安装相应的library
+    
+本例代码分为三部分：
+
+    dataRetr文件夹：数据获取
+    dataProc文件夹: 数据处理
+    dataVisual文件夹：数据可视化
+    
+首先从数据获取开始
+
 # 1、数据获取流程
     数据获取dataretrieval代码可以在dataRetr文件夹的getNBRestaurants.py中获得
+    以下每个命令只需要执行一次
 ## 1.0 初始化
     代码：
     app = DianpingCity()
@@ -58,9 +68,4 @@
     getSingleShopComment()
     获得每个POI的记录时间、用户打分、口味评分、环境评分、服务评分
 
-    在sqlite数据库中执行以下命令，生成一个视图
-    create view nb_restaurant_score_by_year
-    AS
-    select pk, REC_DATE2, avg(SCORE) as avg_score , avg(TAS) as avg_tas ,avg(ENV) as avg_env ,avg(SER) as avg_ser from
-     nb_restaurant_score group by pk, REC_DATE2;
-    视图中将会按POI的年份展示用户打分、口味评分、环境评分、服务评分
+此时，请打开数据库的nb_restaurant_score_by_year_name视图，你将看到一份宁波六个区域的餐饮业POI的点评信息（按年度）
