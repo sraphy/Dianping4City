@@ -8,7 +8,9 @@
     代码：
     app = DianpingCity()
 	app.dbinit()
-执行该代码后，dataRetr中将出现一个nbrestaurants.db的sqlite数据库，其中有一个数据表nb_restaurant
+执行该代码后，dataRetr中将出现一个nbrestaurants.db的sqlite数据库，其中有2个数据表:
+nb_restaurant : 负责记录每个POI的信息
+nb_restaurant_score : 负责记录每个POI对应的评论信息
 
 ## 1.1 宁波规划区全部餐饮POI获取
     app.getNBplandistRestaurants()
