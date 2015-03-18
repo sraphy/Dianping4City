@@ -33,7 +33,7 @@
     discode = ['80''81','82','83','417','3949']
     lgurl = 'http://www.dianping.com/search/category/11/10/g101r' + str(m) + 'p' + str(i)
     上面的url中，r80为海曙,江东81,江北82,鄞州83
-    p{d}为第d页
+    p{d}为第d页,页面上最多会出现50页，因此d的值为0-50
     
 ##1.2 获得单个POI的具体信息（不包含地理坐标）
     app.getSingleShopInfo()
