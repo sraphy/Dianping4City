@@ -38,6 +38,11 @@
 ##1.2 获得单个POI的具体信息（不包含地理坐标）
     app.getSingleShopInfo()
 执行改代码后，宁波规划区范围的餐饮店的点评数量、平均消费、口味评分、环境评分、服务评分和地址被保存到nb_restaurant表中
+注意，当切换到其他城市时候，请修改以下代码中ADDR的城市名称
+
+    query.filter(POI.id == obj.id).update({'ADDR':'宁波市'+address.text,'COM_COUNT':COM_COUNT, 'AVE_PRICE':AVE_PRICE,
+					                                       'TAS_SCORE':TAS_SCORE, 'ENV_SCORE':ENV_SCORE,
+					                                       'SER_SCORE':SER_SCORE})
     
 ##1.3 设置每个POI的地理坐标
     使用高德地理编码工具
